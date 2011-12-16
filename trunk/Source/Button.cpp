@@ -57,7 +57,7 @@ void DirectX::GUI::Button::onMouseEvent( UINT message, WPARAM wParam, LPARAM lPa
 }
 //
 // --------------------------------------------------------
-//	Renders the checkbox control in the proper state.
+//	Renders the button control in the proper state.
 // --------------------------------------------------------
 void DirectX::GUI::Button::render( LPD3DXSPRITE d3dsprite, const POINT* pos )
 {

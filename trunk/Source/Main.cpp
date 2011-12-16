@@ -44,8 +44,8 @@ int CALLBACK WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	ShearEngine->startUp( hInstance );
 
 	// Initialize the state stack
-	MatchUI* match = new MatchUI( );
-	ShearEngine->pushState( match );
+	MainMenu* menu = new MainMenu( );
+	ShearEngine->pushState( menu );
 
 	// Initialize windows message
 	MSG msg; PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE );
