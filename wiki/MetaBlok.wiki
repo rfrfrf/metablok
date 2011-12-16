@@ -1,4 +1,4 @@
-#summary Main wiki page.
+#summary Blokus match simulator and AI player development project
 
 = Introduction =
 
