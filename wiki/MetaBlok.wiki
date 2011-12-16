@@ -1,5 +1,7 @@
 #summary Blokus match simulator and AI player development project
 
+<wiki:toc max_depth="2" />
+
 = Introduction =
 
 The goal of this project is to develop an effective AI player for the board game Blokus. Blokus is a purely deterministic strategy game released in 2000 by Bernard Tavitian. The project was originally started as a class project for an Introductory AI course at the University of Minnesota and was moved here for continued development.
@@ -17,6 +19,38 @@ In the beginning of the game, all players receive the same set of pieces. These 
 Players take turns placing pieces, skipping turns only if required, until no player has a legal move available.
 
 The game is ruled based on score. Every covered tile on the board increases the a player's score by 1, but additional bonus points can be achieved by placing all 21 pieces of one color (+15 points) or placing all 21 pieces and playing the monomino on the last move (+20 points). The player, or in cooperative games the team, with the highest score wins the game. This is the standard rule format used for online play and while other sources give slightly different scoring models this does not affect the overall outcome (winner) of the match.
+
+= Playing Strategies =
+
+Several playing strategies have been formulated as an aid in developing AI players. These strategies represent the most common elements of play which are emphasized by the AI player board evaluation heuristics.
+
+== Formations ==
+
+Developing stable piece formations on the board throughout game play is one of the most important principles of Blokus. Particularly in closed matches, a stable formation allows the player to prevent leaks and reduce the other players access to the holes which inevitably develop during the placement of certain pieces. Often times it is even better to cede territory to the other player in an effort to make a piece placement which better maintains the stability of a formation, such as in the situation depicted in figure 1. It is clear that Red could best expand their territory by attempting to cover the two liberties in the third row created by Blue's N5 piece. A greedy attempt to do so however would leave Red's liberty in row 5 open. This would enable Blue to use its next turn to take advantage of the leak at ( 11, 5 ) to destabilize Red's formation. A better move
+
+                     Figure 1: Stable Formation
+
+would be to use Red's W5 or N5 piece to cover both of the Red liberties and the rightmost
+Blue liberty, closing the potential leak at ( 11, 5 ) while still expanding Red's territory.
+
+== Blocking ==
+
+In Blokus Duo, oensive play is key to establishing a large territory. Even more so for Red during the opening play, restricting mobility for the other player by blocking moves prevents them from establishing large territories without risking the stability of their formations. Selecting moves which prevent the other player from blocking forward liberties is also key to expanding one's territory. By establishing a formation far enough from enemy liberties, a player can ensure the availability of forward liberties at a location on subsequent turns.
+                         
+                          Figure 2: WF Opening
+
+A classic example of this principle appears in the uncommon W opening depicted in figure 2. Although it may appear to be a strong move to novice players, Blue's only forward liberty can be easily blocked. Red can place the F5 piece, establishing forward liberties for development on each side of the W5 while blocking Blue's forward mobility.
+
+== Leaks ==
+
+Preventing leaks in a Blokus game is essential to maintaining a good board formation. Leaks establish enemy forays into otherwise stable regions of player territory. On the other hand, advancing leaks into the other players territory provides an excellent opportunity to delay their development while acquiring territory. Except in open play, where leaks are a common occurrence, most well played games will feature none to 1 or 2 leaks per player. Instead, potential leaks are a factor in piece placement decisions for both players. An opening leak can easily sway the outcome the game, perhaps more so than any other common board
+formation.
+
+== Holes ==
+
+Holes are a consideration in Blokus matches primarily because of their endgame value. A hole which contains on of its players liberties and is of sufficient size to accommodate a piece which provides an automatic endgame placement opportunity. A player might take into consideration the
+holes created by their own pieces as they play to prevent "chaining", or series of connected
+holes which provide a large number of placement opportunities for the other player. Certain pieces such as the long I pieces create large holes by design and are often played making considerations for the accessibility of their holes to the opponent.
 
 = Terminology =
 
