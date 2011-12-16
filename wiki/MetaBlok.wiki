@@ -1,0 +1,19 @@
+#summary Main wiki page.
+
+= Introduction =
+
+The goal of this project is to develop an effective AI player for the board game Blokus. Blokus is a purely deterministic strategy game released in 2000 by Bernard Tavitian. 
+
+= Rules =
+
+In the beginning of the game, all players receive the same set of pieces. These consist of 1 to 5 tile polyominoes of a given color in every possible configuration. Players take turns placing these pieces onto a 14x14 or 20x20 grid, abiding by the following set of guidelines:
+
+  * Each player's first piece must cover a specified starting tile, which varies depending on the mode of play. 
+  * Each subsequent piece placed on the board must be placed in such a way that:
+    # No two pieces of the same color share a common edge
+    # Each piece must touch another piece of the same color along one or more of its corners
+    # No two pieces of any color may overlap on the board
+
+Players take turns placing pieces, skipping turns only if required, until no player has a legal move available.
+
+The game is ruled based on score. Every covered tile on the board increases the a player's score by 1, but additional bonus points can be achieved by placing all 21 pieces of one color (+15 points) or placing all 21 pieces and playing the monomino on the last move (+20 points). The player, or in cooperative games the team, with the highest score wins the game. This is the standard rule format used for online play and while other sources give slightly different scoring models this does not affect the overall outcome (winner) of the match.
