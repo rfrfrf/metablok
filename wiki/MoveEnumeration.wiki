@@ -1,0 +1,22 @@
+#summary Summarizes move enumeration techniques.
+
+= Introduction =
+
+Being one of the most computationally intensive components of minimax searching in Blokus, there has been some development on move enumeration techniques. While there are alternative techniques used by other Blokus AI development projects, we list here the ones utilized by our own AI players.
+
+= Random =
+
+The move enumeration used by the Random AI player was an attempt to refine Blokus move enumeration techniques by providing a base point for profiling move enumeration times and developing other move enumeration functions. It simply looks at each possible orientation of each piece in the players hand and checks if it is valid by comparing the piece layout in memory with the board state at the relevant locations.
+
+= Minimax =
+
+The Minimax AI player extends the efficiency of the Random AIs move enumeration by reducing the number of moves checked for validity. Rather than searching each possible orientation on the board, liberties on the board are matched with non-redundant liberties in a piece layout. This significantly reduces the time required to enumerate all of a state moves while also ensuring no duplicates are produced by eliminating rotationally and flip symmetric liberties from a piece's layout.
+
+The move enumeration is further improved in early game play by only considering moves which utilize the valuable 5 tile polyominoes within the first few turns of play. If a player cannot place a five piece polyominoe, it is assumed they have a losing position.
+
+= Beam =
+
+At the beginning of a turn, the Beam AI player generates a structure called a MoveLists. The MoveLists structure in turn generates and maintains a list of liberties on the board across the move simulation boundaries. Due to the strict requirements of piece placement, there is a maximum of 127 possible moves which can cover a given liberty. Each liberty in the MoveLists structure keeps track of which of those 127 possible moves are valid for any given board configuration. By storing the move lists seperately for each liberty on the board, there are several large performance gains that can be made over the simple reactive move generation methods used by the Minimax AI player's searches:
+  * The move lists for most liberties on the board at any given point are usually not affected by a large percentage of the possible moves. Aside from the moves directly on or near a specific liberty, most moves are simply to far from the liberty to invalidate any of its possible moves. In order to take advantage of this, only liberties which are within range of a move being simulated are considered for an update of their moves. This means that for each liberty in the MoveLists structure, only those who are within range of a given move must have their move lists analyzed.
+  * When a liberty has available moves affected by a move being simulated, only moves which can extend a piece out to the affected region of the board need to be checked for invalidation. In order to reduce the number of moves at a liberty that must be checked for invalidation, we can ignore those that use pieces which can only extend a certain distance out from the liberty. Because relevant data structures for range detection and path finding are also required for certain pruning techniques, the overhead cost of doing this is insignificant.
+  * Unlike to the more common board games such as Chess and Go, once a move is invalid in Blokus, there is no possible legal action which could ever make the move valid again. Reactive enumeration models cannot take advantage of this fact and thus spent precious time checking invalid moves over multiple times. Because the MoveLists structure stores all moves which might be valid however, it also stores exactly which moves are not. When simulating a move, we can skip the expensive process of checking its validity if it was invalid in the previous board configuration.
