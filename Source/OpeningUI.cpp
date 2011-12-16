@@ -1,8 +1,8 @@
 /* ===========================================================================
 
-	Project: MetaBlok - MatchUI
+	Project: MetaBlok - OpeningUI
 
-	Description: Graphical interface for testing AI players.
+	Description: Graphical interface for developing opening books.
 
     Copyright (C) 2011 Lucas Sherman, David Gloe, Mary Southern, Tobias Gulden
 
@@ -27,13 +27,13 @@
 #include "MetaBlok.h"
 
 // Include header
-#include "MatchUI.h"
+#include "OpeningUI.h"
 
 // DirectX GUI controls
 using namespace DirectX::GUI;
 
 // Toolbar buttons
-#define TB_NBUTTONS        12
+#define TB_NBUTTONS        11
 #define TB_NEW_MATCH        0
 #define TB_LOAD_MATCH       1
 #define TB_SAVE_MATCH       2
@@ -42,10 +42,9 @@ using namespace DirectX::GUI;
 #define TB_SETTINGS_SCREEN  5
 #define TB_UNDO				6
 #define TB_REDO				7
-#define TB_PLAY				8
-#define TB_STEP				9
-#define TB_STOP			   10
-#define TB_QUIT			   11
+#define TB_NEXT_VAR			8
+#define TB_PREV_VAR			9
+#define TB_QUIT			   10
 
 // Human player 
 #define NONE -1
@@ -54,7 +53,7 @@ using namespace DirectX::GUI;
 //	Catches gui events and signals the attached match on
 //  relevant message events.
 // --------------------------------------------------------
-void MatchUI::onGuiEvent( DirectX::GUI::Control* control, unsigned int message, void* data )
+void OpeningUI::onGuiEvent( DirectX::GUI::Control* control, unsigned int message, void* data )
 {
 	// Delete window panels when closed
 	if( message == CM_WINDOW_CLOSED ) 
@@ -127,16 +126,15 @@ void MatchUI::onGuiEvent( DirectX::GUI::Control* control, unsigned int message, 
 	else if( control == m_button[TB_LOAD_MATCH] ) createLoadWindow( );
 	else if( control == m_button[TB_SAVE_MATCH] ) quickSave( );
 	else if( control == m_button[TB_SAVEAS_MATCH] ) createSaveWindow( );
+	else if( control == m_button[TB_NEXT_VAR] ) m_match.play( ); 
+	else if( control == m_button[TB_PREV_VAR] ) m_match.step( );
 	else if( control == m_button[TB_QUIT] ) createQuitWindow( );
-	else if( control == m_button[TB_PLAY] ) m_match.play( ); 
-	else if( control == m_button[TB_STEP] ) m_match.step( );
-	else if( control == m_button[TB_STOP] ) m_match.stop( );
 }
 //
 // --------------------------------------------------------
 //	Handles hotkeys for quick match interactions.
 // --------------------------------------------------------
-void MatchUI::onKeyboardEvent( UINT message, WPARAM wParam, LPARAM lParam )
+void OpeningUI::onKeyboardEvent( UINT message, WPARAM wParam, LPARAM lParam )
 {
 	// Filter out of focus events
 	if( m_manager->isFocusedControl( ) ) return;
@@ -154,14 +152,8 @@ void MatchUI::onKeyboardEvent( UINT message, WPARAM wParam, LPARAM lParam )
 		// Open load match window
 		if( key == KEY_O ) if( m_manager->getKeyState( KEY_LCTRL ) ) createLoadWindow( );
 
-		// Begins a new match using the previous match settings if the match is waiting
-		if( key == KEY_ENTER ) if( m_match.isOver( ) ) m_match.beginNewMatch( NULL );
-
 		// Quick save if filename specified, otherwise saveAs
 		if( key == KEY_S ) if( m_manager->getKeyState( KEY_LCTRL ) ) quickSave( );
-
-		// Continue with match
-		if( key == KEY_SPACE ) m_match.play( );
 	}
 }
 //
@@ -169,7 +161,7 @@ void MatchUI::onKeyboardEvent( UINT message, WPARAM wParam, LPARAM lParam )
 //	Initializes a match with default settings and creates
 //  the GUI toolbar.
 // --------------------------------------------------------
-void MatchUI::startup( )
+void OpeningUI::startup( )
 {
 	// Get handle to directX Manager
 	m_manager = DirectX::Manager::instance( );
@@ -196,7 +188,7 @@ void MatchUI::startup( )
 // --------------------------------------------------------
 //	Deletes the GUI panel and terminates the active match.
 // --------------------------------------------------------
-void MatchUI::shutdown( )
+void OpeningUI::shutdown( )
 {
 	// Delete GUI panel
 	delete m_displayPanel;
@@ -212,10 +204,10 @@ void MatchUI::shutdown( )
 //	Creates the primary toolbar along the bottom edge of 
 //  the screen.
 // --------------------------------------------------------
-void MatchUI::createToolbar( )
+void OpeningUI::createToolbar( )
 {
 	// Load button icons
-	m_spriteSheet.create( L"Images\\ToolbarIcons.bmp", 0xffff0000 );
+	m_spriteSheet.create( L"Images\\OpeningIcons.bmp", 0xffff0000 );
 
 	// Toolbar icon rectangles
 	RECT buttonRect[TB_NBUTTONS];
@@ -239,7 +231,7 @@ void MatchUI::createToolbar( )
 // --------------------------------------------------------
 //	Creates the graphics settings window panel.
 // --------------------------------------------------------
-void MatchUI::createGraphicsWindow( )
+void OpeningUI::createGraphicsWindow( )
 {
 	if( m_graphWin ) return;
 
@@ -298,7 +290,7 @@ void MatchUI::createGraphicsWindow( )
 // --------------------------------------------------------
 //	Creates the save match as window panel.
 // --------------------------------------------------------
-void MatchUI::createSaveWindow( )
+void OpeningUI::createSaveWindow( )
 {
 	if( m_saveWin ) return;
 
@@ -326,7 +318,7 @@ void MatchUI::createSaveWindow( )
 // --------------------------------------------------------
 //  Creates the player selection window.
 // --------------------------------------------------------
-void MatchUI::createPlayerWindow( )
+void OpeningUI::createPlayerWindow( )
 {
 	if( m_playWin ) return;
 
@@ -384,7 +376,7 @@ void MatchUI::createPlayerWindow( )
 // --------------------------------------------------------
 //	Creates the match settings window panel.
 // --------------------------------------------------------
-void MatchUI::createMatchWindow( )
+void OpeningUI::createMatchWindow( )
 {
 	if( m_matchWin ) return;
 }
@@ -392,7 +384,7 @@ void MatchUI::createMatchWindow( )
 // --------------------------------------------------------
 //  Creates the load file window panel.
 // --------------------------------------------------------
-void MatchUI::createLoadWindow( )
+void OpeningUI::createLoadWindow( )
 {
 	if( m_loadWin ) return;
 
@@ -458,7 +450,7 @@ void MatchUI::createLoadWindow( )
 // --------------------------------------------------------
 //  Creates the new match save warning window panel.
 // --------------------------------------------------------
-void MatchUI::createNewMatchWindow( )
+void OpeningUI::createNewMatchWindow( )
 {
 	if( m_newWin ) return;
 
@@ -474,7 +466,7 @@ void MatchUI::createNewMatchWindow( )
 
 	// Unsaved data warning message
 	Label::create( m_style, m_newWin )
-		.text( L"Are you sure you want to\n begin a new match?\n\nAny unsaved data will be lost." )
+		.text( L"Are you sure you want to\n start a new book?\n\nAny unsaved data will be lost." )
 		.size( 210, 100 ).pos( 20, 30 );
 
 	// New match panel buttons
@@ -487,7 +479,7 @@ void MatchUI::createNewMatchWindow( )
 // --------------------------------------------------------
 //  Creates the quit save warning window panel.
 // --------------------------------------------------------
-void MatchUI::createQuitWindow( )
+void OpeningUI::createQuitWindow( )
 {
 	if( m_quitWin ) return;
 
@@ -517,7 +509,7 @@ void MatchUI::createQuitWindow( )
 //	Applies the graphics settings as determined by the 
 //  selected options in the graphics window panel.
 // --------------------------------------------------------
-void MatchUI::applyGraphicsSettings( )
+void OpeningUI::applyGraphicsSettings( )
 {
 	// Update device display mode
 	unsigned int adapter = 0, mode = m_graphDisp->getItem( );
@@ -542,7 +534,7 @@ void MatchUI::applyGraphicsSettings( )
 // --------------------------------------------------------
 //	Applies the player selections to the current match.
 // --------------------------------------------------------
-void MatchUI::applyPlayers( )
+void OpeningUI::applyPlayers( )
 {
 	for( int i = 0; i < 4; i++ )
 		m_match.setAiPlayer( i, m_playSel[i]->getItemText( ) );
@@ -551,7 +543,7 @@ void MatchUI::applyPlayers( )
 // --------------------------------------------------------
 //	Saves the match to the previously specified file.
 // --------------------------------------------------------
-void MatchUI::quickSave( )
+void OpeningUI::quickSave( )
 {
 	// Check for active save file edit box
     if( m_saveWin ) m_saveFilename = m_saveName->getText( );
@@ -566,7 +558,7 @@ void MatchUI::quickSave( )
 // --------------------------------------------------------
 //	Loads the specified match into the match simulator.
 // --------------------------------------------------------
-void MatchUI::load( )
+void OpeningUI::load( )
 {
 	// Get the match filename from the list box
 	int key = m_loadMatches->getLastSelected( );
@@ -581,7 +573,7 @@ void MatchUI::load( )
 //	Updates GUI component positions if invalidated by a 
 //  display mode change during the last reset operation.
 // --------------------------------------------------------
-void MatchUI::onDeviceReset( )
+void OpeningUI::onDeviceReset( )
 {
 	// Update toolbar buttons
 	int height = m_manager->getDisplayHeight( ) - 50;

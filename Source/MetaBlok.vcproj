@@ -178,11 +178,19 @@
 				Name="Header Files"
 				>
 				<File
+					RelativePath=".\MainMenu.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Match.h"
 					>
 				</File>
 				<File
 					RelativePath=".\MatchUI.h"
+					>
+				</File>
+				<File
+					RelativePath=".\OpeningUI.h"
 					>
 				</File>
 				<File
@@ -198,11 +206,19 @@
 				Name="Source Files"
 				>
 				<File
+					RelativePath=".\MainMenu.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Match.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\MatchUI.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\OpeningUI.cpp"
 					>
 				</File>
 				<File
@@ -417,6 +433,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\Graphic.h"
+						>
+					</File>
+					<File
 						RelativePath=".\Label.h"
 						>
 					</File>
@@ -474,6 +494,10 @@
 					</File>
 					<File
 						RelativePath=".\EditBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Graphic.cpp"
 						>
 					</File>
 					<File

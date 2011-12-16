@@ -48,6 +48,8 @@
 #include "Types.h" 
 #include "Match.h"
 #include "MatchUI.h"
+#include "OpeningUI.h"
+#include "MainMenu.h"
 
 // End definition
 #endif

@@ -130,6 +130,7 @@
 #include "EditBox.h"
 #include "Window.h"
 #include "Label.h"
+#include "Graphic.h"
 #endif//DX_NOGUI
 
 // Management Class
