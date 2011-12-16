@@ -23,20 +23,29 @@ The game is ruled based on score. Every covered tile on the board increases the 
 Due to the lack of widespread Blokus research, there are as of yet few localized terminology sets for the game Blokus. We define several terms here to serve both as an aid in communication of game concepts and as a database of recommended terminology for developer documentation.
 
 *Square* One of the 196 to 400 locations on the game grid. These are often classied based on their characteristics, such as a 'covered' or 'free' square. They are indexed using a tuple ( x, y ) specifying the number of tiles to the right and down from the top left corner of the grid in standard orientation.
+
 *Covered* A property of a Square. A square is said to be covered for a given player if it is covered by a section of a polyominoe belonging to the given player. A square is simply said to be covered if it is covered by either player.
-*Free* A property of a Square. A square is said to be free for a given player if it is not covered
-and is not directly adjacent to a square covered by the specied player.
-*Liberty* A property of a Square. A square is said to be a liberty of a specied player if it is diagonally adjacent to another square covered by the same player. Additionally, a square which is not free for a given player cannot be a liberty for that player. Liberties are categorized based on how they are positioned. Liberties of a given player which are covered by that player to their lower left for example have the LL quality. This applies to each cardinal diagonal: Upper Right (UR), Upper Left (UL), Lower Left (LL), Lower Right (LR).
+
+*Free* A property of a Square. A square is said to be free for a given player if it is not covered and is not directly adjacent to a square covered by the specified player.
+
+*Liberty* A property of a Square. A square is said to be a liberty of a specified player if it is diagonally adjacent to another square covered by the same player. Additionally, a square which is not free for a given player cannot be a liberty for that player. Liberties are categorized based on how they are positioned. Liberties of a given player which are covered by that player to their lower left for example have the LL quality. This applies to each cardinal diagonal: Upper Right (UR), Upper Left (UL), Lower Left (LL), Lower Right (LR).
+
 *Dead Liberty* A property of a Liberty. A liberty is said to be dead if there are no valid moves which can be made by the owning player that would cover the liberty.
-*Fighting Liberty* A property of a Liberty. A liberty is said to be ghting if there is a connected set of less than a specified number of squares which are not covered and form a path between the given liberty and any liberty owned by another team's player.
+
+*Fighting Liberty* A property of a Liberty. A liberty is said to be fighting if there is a connected set of less than a specified number of squares which are not covered and form a path between the given liberty and any liberty owned by another team's player.
+
 *Territory* A set of squares on the game board characterized by being more in the control of one player than the other. Often times characterized by a wall of one player's pieces preventing placement of the other players pieces in the opposite region of the board.
+
 *Hand* A player's hand is the set of available polyominoes which have not already been placed on the board by the player.
+
 *Leak* A property of a Liberty. A liberty is said to be a leak if it is located in a tile which would otherwise be considered within the other players territory. This typically involves the liberties source tile being bordered on the two closest sides by colors owned by other teams or players.
-*Hole* A collection of adjacent squares free for a given player but not free for the other player. This collection of squares must be accessable to the player and must dene a region of the board upon which a piece remaining in the players hand may be played in a valid conguration.
+
+*Hole* A collection of adjacent squares free for a given player but not free for the other player. This collection of squares must be accessible to the player and must denote a region of the board upon which a piece remaining in the players hand may be played in a valid configuration.
+
 *Leak Hole* A Leak which is a members of a set of squares which falls within the definition of a hole. These denote sets of tiles in the other players territory which have been made available to the player through a leak.
-14
-*Open Play* A form of gameplay featuring a distinct and unusually high incidence rate of
-leaks for both players. This form of play more commonly develops in amateur or one
-sided matches where players develop structures on the game board which are prone to leaks.
-*Closed Play* A form of gameplay featuring a few or no leaks by either player. The goal of such matches is to develope territories outward from existing territory in order to close o the largest possible region of the board from the other player.
-*Half-Open* A form of gameplay which may ambiguously fall under the denitions of open and closed play. There may be one or two leaks per player but the underlying structures on the board form relatively well-developed territories.
+
+*Open Play* A form of gameplay featuring a distinct and unusually high incidence rate of leaks for both players. This form of play more commonly develops in amateur or one sided matches where players develop structures on the game board which are prone to leaks.
+
+*Closed Play* A form of gameplay featuring a few or no leaks by either player. The goal of such matches is to develop territories outward from existing territory in order to close o the largest possible region of the board from the other player.
+
+*Half-Open* A form of gameplay which may ambiguously fall under the definitions of open and closed play. There may be one or two leaks per player but the underlying structures on the board form relatively well-developed territories.
