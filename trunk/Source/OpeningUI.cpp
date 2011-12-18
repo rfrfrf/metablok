@@ -34,11 +34,11 @@ using namespace DirectX::GUI;
 
 // Toolbar buttons
 #define TB_NBUTTONS        11
-#define TB_NEW_MATCH        0
-#define TB_LOAD_MATCH       1
-#define TB_SAVE_MATCH       2
-#define TB_SAVEAS_MATCH     3
-#define TB_SETTINGS_MATCH   4
+#define TB_NEW_BOOK         0
+#define TB_LOAD_BOOK        1
+#define TB_SAVE_BOOK        2
+#define TB_SAVEAS_BOOK      3
+#define TB_SETTINGS_BOOK    4
 #define TB_SETTINGS_SCREEN  5
 #define TB_UNDO				6
 #define TB_REDO				7
@@ -118,14 +118,14 @@ void OpeningUI::onGuiEvent( DirectX::GUI::Control* control, unsigned int message
 	}
 
 	// Primary toolbar buttons
-	else if( control == m_button[TB_NEW_MATCH] ) createNewMatchWindow( );
+	else if( control == m_button[TB_NEW_BOOK] ) createNewMatchWindow( );
 	else if( control == m_button[TB_SETTINGS_SCREEN] ) createGraphicsWindow( );
-	else if( control == m_button[TB_SETTINGS_MATCH]  ) createPlayerWindow( );
+	else if( control == m_button[TB_SETTINGS_BOOK]  ) createPlayerWindow( );
 	else if( control == m_button[TB_UNDO] ) m_match.undoMove( );
 	else if( control == m_button[TB_REDO] ) m_match.redoMove( );
-	else if( control == m_button[TB_LOAD_MATCH] ) createLoadWindow( );
-	else if( control == m_button[TB_SAVE_MATCH] ) quickSave( );
-	else if( control == m_button[TB_SAVEAS_MATCH] ) createSaveWindow( );
+	else if( control == m_button[TB_LOAD_BOOK] ) createLoadWindow( );
+	else if( control == m_button[TB_SAVE_BOOK] ) quickSave( );
+	else if( control == m_button[TB_SAVEAS_BOOK] ) createSaveWindow( );
 	else if( control == m_button[TB_NEXT_VAR] ) m_match.play( ); 
 	else if( control == m_button[TB_PREV_VAR] ) m_match.step( );
 	else if( control == m_button[TB_QUIT] ) createQuitWindow( );
@@ -412,7 +412,7 @@ void OpeningUI::createLoadWindow( )
 
 	// Check if there are any maps to be loaded
 	WIN32_FIND_DATAW findData; HANDLE fileHandle;
-	fileHandle = FindFirstFileW( L"Saves\\*", &findData );
+	fileHandle = FindFirstFileW( L"Books\\*", &findData );
 	if( fileHandle == INVALID_HANDLE_VALUE ) return;
 
 	// Loop through files
@@ -432,9 +432,9 @@ void OpeningUI::createLoadWindow( )
 		// Check the file type
 		int end = filename.size( );
 		if( filename.at( end-4 ) != '.' ||
-			filename.at( end-3 ) != 's' ||
-			filename.at( end-2 ) != 'a' ||
-			filename.at( end-1 ) != 'v' )	
+			filename.at( end-3 ) != 'o' ||
+			filename.at( end-2 ) != 'b' ||
+			filename.at( end-1 ) != 'k' )	
 			continue; 
 
 		// Remove file type extension
@@ -551,8 +551,8 @@ void OpeningUI::quickSave( )
 	// Unspecified filename, open save file as window
 	if( m_saveFilename == L"" ) { createSaveWindow( ); return; }
 
-	// Attempt to save the current match to disk
-	m_match.saveToDisk( m_saveFilename.c_str( ) );
+	// Attempt to save the current book to disk
+	//m_openingBook.saveToDisk( m_saveFilename.c_str( ) );
 }
 //
 // --------------------------------------------------------
@@ -564,9 +564,9 @@ void OpeningUI::load( )
 	int key = m_loadMatches->getLastSelected( );
 	const wchar_t* filename = m_loadMatches->getString( key );
 	
-	// Attempt to lead the specified match
-	if( m_match.loadFromDisk( filename ) ) 
-		m_saveFilename = filename;
+	// Attempt to load the specified match
+	/*if( m_openingBook.loadFromDisk( filename ) ) 
+		m_saveFilename = filename;*/
 }
 //
 // --------------------------------------------------------

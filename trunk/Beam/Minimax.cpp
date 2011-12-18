@@ -28,7 +28,7 @@
 #include "Includes.h"
 
 // Minimax Search Settings
-#define FORCE_EVAL_STD	  4   //< Forces the specified eval funct
+#define FORCE_EVAL_STD	  2   //< Forces the specified eval funct
 #define FORCE_EVAL_END	  2   //< Forces the specified eval funct
 #define MAX_THREADS       4   //< Maximum minimax thread count
 #define MIN_DEPTH	      2   //< Minimum minimax search depth

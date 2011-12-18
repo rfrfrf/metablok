@@ -24,27 +24,17 @@
 
 =========================================================================== */
 
-// Include stdlib
-#include <stdlib.h>
-#include <math.h>
-
 // Type definitions
-#include "Types.h"
-#include "TypesEx.h"
+#include "Includes.h"
 
 // Include header
 #include "Heuristic.h"
-
-#include <iostream>
-
-NeuralNetwork Heuristic::neuralNet;
 
 // Board evaluation heuristic function prototypes
 float simple( short grid[][14], int pieces[][3], int score[], int player );
 float random( short grid[][14], int pieces[][3], int score[], int player );
 float liberties( short grid[][14], int pieces[][3], int score[], int player );
 float lib_diff( short grid[][14], int pieces[][3], int score[], int player );	//does not work properly (yet)
-float network( short grid[][14], int pieces[][3], int score[], int player );
 
 //Utility functions for board evaluation functions
 	//For heuristic liberties
@@ -52,14 +42,13 @@ float network( short grid[][14], int pieces[][3], int score[], int player );
 	float libValue_diff( short grid[][14], int x, int y, int player);
 
 // Board evaluation function count
-const int Heuristic::nEvaluationFunctions = 4;
+const int Heuristic::nEvaluationFunctions = 3;
 
 // Board evaluation function descriptions
 const char* Heuristic::evalFunctionName[nEvaluationFunctions] = {
 	"Random utility evaluation heuristic.",
 	"Simple score based evaluation heuristic.",
-	"A heuristic which takes the liberties into account, with relative weights.",
-	"Neural Network Heuristic"
+	"A heuristic which takes the liberties into account, with relative weights."
 };
 
 // Board evaluation function pointers
@@ -67,7 +56,6 @@ const EvalFunction Heuristic::evalFunction[nEvaluationFunctions] = {
 	&random, // "Random utility evaluation heuristic."
 	&simple, // "Simple score based evaluation heuristic"
 	&liberties, //"Heuristic with relative weights for the liberties"
-	&network, // Neural network heuristic
 };
 
 // --------------------------------------------------------
@@ -119,34 +107,6 @@ float liberties( short grid[][14], int pieces[][3],
 	float BoardScore=0;
 	BoardScore = score[player] - score[1-player] + weight_Lib * (lib_MAX - lib_MIN);
 	return BoardScore;
-}
-
-float network( short grid[][14], int pieces[][3], int score[], int player ) {
-    // Inputs: one for each board square (196), 
-    // one for each remaining piece (42), one for current player (1),
-    // one for each score (2), one for current ply (1)
-	
-	// Set board neuron inputs
-	for(int i = 0; i < 14; i++) {
-	    for(int j = 0; j < 14; j++) {
-	        Heuristic::neuralNet.SetInput(i+j, grid[i][j]);
-	    }
-	}
-	
-	// Set remaining piece inputs
-	for(int i = 0; i < 3; i++) {
-	    Heuristic::neuralNet.SetInput(196+2*i, pieces[0][i]);
-	    Heuristic::neuralNet.SetInput(196+2*i+1, pieces[1][i]);
-	}
-	
-	// And misc other inputs
-	Heuristic::neuralNet.SetInput(238, player);
-	Heuristic::neuralNet.SetInput(239, score[0]);
-	Heuristic::neuralNet.SetInput(240, score[1]);
-	
-	// Get the output
-	Heuristic::neuralNet.FeedForward();
-	return Heuristic::neuralNet.GetOutput(player);
 }
 
 //assigns a relative weight to every liberty, where every free spot in space has the same contribution

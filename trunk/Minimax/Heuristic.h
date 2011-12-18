@@ -28,23 +28,19 @@
 #ifndef HEURISTIC_H
 #define HEURISTIC_H
 
-#include "NeuralNetwork.h"
-
 // Evaluation function format
 typedef float (*EvalFunction)
 	( short grid[][14], int pieces[][3], int score[], int player );
 
 // Heuristic namespace
 namespace Heuristic {
-	extern NeuralNetwork neuralNet;
 
 	// Board evaluation functions
 	extern const int nEvaluationFunctions;
 	extern const EvalFunction evalFunction[];
 	extern const char* evalFunctionName[];
 
-// End namespace
-} // Heuristic
+}
 
 // End definition
 #endif

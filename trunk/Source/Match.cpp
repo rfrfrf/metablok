@@ -30,7 +30,7 @@
 #include "Match.h"
 
 // Debug AI modules
-#define DEBUG_AIS  1
+#define DEBUG_AIS  0
 
 // Selected piece
 #define NONE  -1
