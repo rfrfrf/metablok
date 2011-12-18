@@ -33,6 +33,7 @@
 #include <process.h>
 
 // C++ Standard library 
+#include <stdlib.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -40,6 +41,7 @@
 #include <time.h>
 #include <string>
 #include <limits>
+#include <math.h>
 
 // Debug macros
 #include "Debug.h"

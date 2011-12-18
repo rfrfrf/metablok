@@ -28,14 +28,14 @@
 #include "Includes.h"
 
 // Minimax Search Settings
-#define FORCE_EVAL		  -1  //< Forces the specified eval funct
+#define FORCE_EVAL		  2  //< Forces the specified eval funct
 #define MAX_THREADS       4   //< Maximum minimax thread count
 #define MIN_DEPTH	      3   //< Minimum minimax search depth
 #define MAX_DEPTH         3   //< Maximum minimax search depth
 #define PROFILE		   TRUE   //< Imbeds profile code in build
 
-// Opening Book Filename
-#define BOOK_FNAME	"defaultbook.txt"
+// Opening book filename
+#define BOOK_FNAME	NULL   //< Opening book filename, NULL for none
 
 // Profiler segments
 enum ProfilerFunctions {
@@ -81,19 +81,16 @@ void Minimax::startup( int boardSize, int startTile[][2], int nPlayers )
 		m_startTile[i][1] = startTile[i][1]; }
 
 	// Load opening book
-	try { m_book.openBook(BOOK_FNAME);
-		std::cout << "Opening book " << BOOK_FNAME 
-			      << " successfully loaded" << std::endl;
-	} catch( const char *s ) {
-		std::cerr << "Error with opening book:\n	" << s << "\n\n"; }
+	if( BOOK_FNAME ) { try { m_book.openBook( BOOK_FNAME );
+			std::cout << "Opening book " << BOOK_FNAME << " loaded\n";
+		} catch( const char *s ) {
+			std::cerr << "Error with opening book:\n	" << s << "\n\n"; } 
+	} else std::cout << "No opening book loaded\n";
 
 	// Print settings to standard io
 	std::cout << "Max Thread Count: " << MAX_THREADS << "\n";
 	std::cout << "Min Search Depth: " << MIN_DEPTH << "\n";
 	std::cout << "Max Search Depth: " << MAX_DEPTH << "\n";
-	
-	// Initialize network for heuristic function
-	Heuristic::neuralNet.LoadData("testnetwork.txt");
 
 	// Select an evaluation function
 	if( FORCE_EVAL != -1 ) m_evalFunction = FORCE_EVAL; else 
@@ -614,8 +611,6 @@ int Minimax::getMoveList( Move moves[], short grid[][14], int pieces[][3], int p
 //	Enumerates all available moves by searching through all
 //  possible matches between piece and board liberties and
 //	checking whether the move is valid or not.
-// --------------------------------------------------------
-//CHANGE: here only the pieces of size 5 are taken into account
 // --------------------------------------------------------
 int Minimax::getMoveList_5pieces( Move moves[], short grid[][14], int pieces[][3], int player )
 {

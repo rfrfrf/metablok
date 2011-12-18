@@ -21,10 +21,10 @@ IDI_LARGE				ICON         "large.ico"
         {
             VALUE "FileDescription", "Match Simulator"
             VALUE "FileVersion", "1.0"
-            VALUE "InternalName", "Blokus"
-            VALUE "LegalCopyright", "(C) 2011  <name of author>"
-            VALUE "OriginalFilename", "Blokus.exe"
-            VALUE "ProductName", "Blokus AI"
+            VALUE "InternalName", "MetaBlok"
+            VALUE "LegalCopyright", "(C) 2011 Lucas Sherman, David Gloe, Tobia Gulden, Mary Southern"
+            VALUE "OriginalFilename", "MetaBlok.exe"
+            VALUE "ProductName", "Blokus Match Simulator"
             VALUE "ProductVersion", "1.0"
         }
     }

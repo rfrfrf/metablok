@@ -62,7 +62,9 @@ public:
 	}
 
 	// Compute liberty free space
-	// :TODO: Keep count variable
+	// :TODO: Keep count variable if 
+	//  this proves to be a good heuristic
+	//  element.
 	__forceinline int getFreeSpace( ) 
 	{
 		int space = 0;

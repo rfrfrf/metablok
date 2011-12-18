@@ -71,7 +71,6 @@ private:
 	// Move enumeration functions
 	__forceinline static int getMoveList( Move* __restrict moves, short (*__restrict grid)[14], int (*__restrict pieces)[3], int player );
 	__forceinline static bool isValidMove( Move &move, short (*__restrict grid)[14], int player ); 
-	// CHANGED: The additional function for only searching the pieces of size 5
 	__forceinline static int getMoveList_5pieces( Move* __restrict moves, short (*__restrict grid)[14], int (*__restrict pieces)[3], int player );
 
 	// Move simulation function

@@ -81,22 +81,24 @@ float simple( MoveLists* moves, short grid[][14], int pieces[],
 //
 // --------------------------------------------------------
 //	Simple board evaluation heuristic. Weights liberties
-//  using data from the MoveLists for each player.
+//  using data from the MoveLists for each player. This is
+//  an excellent heuristic to attempt neural network 
+//  integration with at some point.
 // --------------------------------------------------------
 float weight( MoveLists* moves, short grid[][14], int pieces[],
-			 int score[], int player ) 
+			 int score[], int player )
 {
 	// Static liberty weight values
-	static const int WEIGHT_SCORE	 = 100;
-	static const int WEIGHT_ATMOVE	 =   0;
-	static const int WEIGHT_DEFAULT  = 100;
-	static const int WEIGHT_FIGHTING =   0;
-	static const int WEIGHT_PIECE	 =  10;
-	static const int WEIGHT_MOVE	 =   0;
-	static const int WEIGHT_DIST	 =  33;
-	static const int WEIGHT_ANG_GOOD =  33;
-	static const int WEIGHT_ANG_BAD  =   0;
-	static const int WEIGHT_LEAK	 = 200;
+	static const int WEIGHT_SCORE	 =  100;
+	static const int WEIGHT_ATMOVE	 =  200;
+	static const int WEIGHT_DEFAULT  =  100;
+	static const int WEIGHT_FIGHTING =    0;
+	static const int WEIGHT_PIECE	 =   10;
+	static const int WEIGHT_MOVE	 =    0;
+	static const int WEIGHT_DIST	 =   33;
+	static const int WEIGHT_ANG_GOOD =   33;
+	static const int WEIGHT_ANG_BAD  =    0;
+	static const int WEIGHT_LEAK	 = 1000;
 
 	// Initialize weights with player to move advantage
 	int moveAdv = (player == PLAYER_MAX) ? WEIGHT_ATMOVE : -WEIGHT_ATMOVE;
@@ -149,14 +151,14 @@ float weight( MoveLists* moves, short grid[][14], int pieces[],
 //
 // --------------------------------------------------------
 //	Simple board evaluation heuristic. Adds a fraction of
-//  the players influence territory to its score.
+//  the player's influence territory to their score.
 // --------------------------------------------------------
 float region( MoveLists* moves, short grid[][14], int pieces[],
 			 int score[], int player ) 
 {
 	// Static weight values
-	static const int WEIGHT_AREAS = 4;
-	static const int WEIGHT_SCORE = 1;
+	static const int WEIGHT_AREAS = 1;
+	static const int WEIGHT_SCORE = 3;
 
 	// Territory influence map
 	InfluenceMap influenceMap;
@@ -177,7 +179,7 @@ float region( MoveLists* moves, short grid[][14], int pieces[],
 //
 // --------------------------------------------------------
 //	Simple board evaluation heuristic. Adds a fraction of
-//  the players liberties open territory to players score.
+//  the player's libertie's open tiles to their score.
 // --------------------------------------------------------
 float spaces( MoveLists* moves, short grid[][14], int pieces[],
 			 int score[], int player ) 
