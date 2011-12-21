@@ -183,7 +183,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MemoryPool.cpp"
+				RelativePath="..\Includes\MemoryPool.cpp"
 				>
 			</File>
 			<File
@@ -207,7 +207,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\MoveLists.cpp"
+				RelativePath="..\Includes\MoveLists.cpp"
 				>
 			</File>
 			<File
@@ -219,7 +219,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Piece.cpp"
+				RelativePath="..\Includes\Piece.cpp"
 				>
 			</File>
 			<File
@@ -253,7 +253,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MemoryPool.h"
+				RelativePath="..\Includes\MemoryPool.h"
 				>
 			</File>
 			<File
@@ -261,7 +261,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MoveLists.h"
+				RelativePath="..\Includes\MoveLists.h"
 				>
 			</File>
 			<File
@@ -273,7 +273,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Piece.h"
+				RelativePath="..\Includes\Piece.h"
 				>
 			</File>
 			<File

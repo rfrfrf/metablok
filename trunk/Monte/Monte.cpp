@@ -72,7 +72,8 @@ Move Monte::makeMove( char grid[][20], bool pieces[][21], int score[], int playe
 //  searching through all possible orientations of a piece 
 //  on the board.
 // --------------------------------------------------------
-void Monte::getAvailableMoves( std::vector<Move>* out, char grid[][20], bool pieces[][21], int player )
+void Monte::getAvailableMoves( std::vector<Move>* out, 
+			char grid[][20], bool pieces[][21], int player )
 {
 	Move move;
 
@@ -169,7 +170,8 @@ bool Monte::isValidMove( Move move, char grid[][20], int player )
 //  piece are compatible and updates the liberty covered 
 //  flag if a liberty was covered.
 // --------------------------------------------------------
-bool Monte::isValidPattern( int pieceNumber, bool* liberty, int px, int py, int gx, int gy, char grid[][20], int player )
+bool Monte::isValidPattern( int pieceNumber, bool* liberty, int px, int py, 
+						   int gx, int gy, char grid[][20], int player )
 {
 	// Check for outside grid bounds on a covering tile
 	char piecePattern = m_piece[pieceNumber].layout[px][py];
