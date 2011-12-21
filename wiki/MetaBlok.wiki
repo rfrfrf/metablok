@@ -1,5 +1,7 @@
 #summary Blokus match simulator and AI player development project
 
+= MetaBlok =
+
 <wiki:toc max_depth="2" />
 
 = Introduction =
@@ -19,6 +21,15 @@ In the beginning of the game, all players receive the same set of pieces. These 
 Players take turns placing pieces, skipping turns only if required, until no player has a legal move available.
 
 The game is ruled based on score. Every covered tile on the board increases the a player's score by 1, but additional bonus points can be achieved by placing all 21 pieces of one color (+15 points) or placing all 21 pieces and playing the monomino on the last move (+20 points). The player, or in cooperative games the team, with the highest score wins the game. This is the standard rule format used for online play and while other sources give slightly different scoring models this does not affect the overall outcome (winner) of the match.
+
+= AI Players =
+
+There are currently 4 AI players which feature several different playing techniques. Information on the implementation of these players is available on the respective wiki pages:
+
+  * [RandomPlayer]
+  * [MinimaxPlayer]
+  * [BeamPlayer]
+  * [MontePlayer]
 
 = Playing Strategies =
 
@@ -74,7 +85,7 @@ Due to the lack of widespread Blokus research, there are as of yet few localized
 
 *Leak* A property of a Liberty. A liberty is said to be a leak if it is located in a tile which would otherwise be considered within the other players territory. This typically involves the liberties source tile being bordered on the two closest sides by colors owned by other teams or players.
 
-*Hole* A collection of adjacent squares free for a given player but not free for the other player. This collection of squares must be accessible to the player and must denote a region of the board upon which a piece remaining in the players hand may be played in a valid configuration.
+*Hole* A collection of adjacent squares free for a given player but not free for the other player. This collection of squares must be accessible to the player and must denote a region of the board upon which a piece remaining in the players hand may be played in a valid configuration.
 
 *Leak Hole* A Leak which is a members of a set of squares which falls within the definition of a hole. These denote sets of tiles in the other players territory which have been made available to the player through a leak.
 
@@ -82,4 +93,4 @@ Due to the lack of widespread Blokus research, there are as of yet few localized
 
 *Closed Play* A form of gameplay featuring a few or no leaks by either player. The goal of such matches is to develop territories outward from existing territory in order to close o the largest possible region of the board from the other player.
 
-*Half-Open* A form of gameplay which may ambiguously fall under the definitions of open and closed play. There may be one or two leaks per player but the underlying structures on the board form relatively well-developed territories.
+*Half-Open* A form of gameplay which may ambiguously fall under the definitions of open and closed play. There may be one or two leaks per player but the underlying structures on the board form relatively well-developed territories.
