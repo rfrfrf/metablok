@@ -42,6 +42,25 @@
 
 // Type definitions
 #include "Types.h"
+#include "TypesEx.h"
+
+// Debug header
+#include "Debug.h"
+
+// Piece definitions
+#include "Piece.h"
+
+// Memory pools
+#include "MemoryPool.h"
+
+// Profiler
+#include "Profiler.h"
+
+// Move enumeration
+#include "MoveLists.h"
+
+// Monte Carlo search
+#include "Node.h"
 
 // Include header
 #include "Monte.h"

@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="../Blokus/Players"
+			OutputDirectory="../MetaBlok/Players"
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
 			>
@@ -171,11 +171,51 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\Includes\Debug.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Includes.h"
 				>
 			</File>
 			<File
+				RelativePath="..\Includes\MemoryPool.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Monte.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MoveLists.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Node.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Includes\OpeningBook.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Includes\Piece.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Profiler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Includes\Timer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Includes\Types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Includes\TypesEx.h"
 				>
 			</File>
 		</Filter>
@@ -185,7 +225,35 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\Includes\MemoryPool.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Monte.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MoveLists.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Node.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Includes\OpeningBook.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Includes\Piece.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Profiler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Includes\Timer.cpp"
 				>
 			</File>
 		</Filter>
