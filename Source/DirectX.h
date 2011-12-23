@@ -1,9 +1,10 @@
 /* ===========================================================================
 
-	Project: DirectX Wrapper Engine
+	Project: DirectX Game Engine
 
 	Description:
-	 A 3D Rendering engine utilizing Microsoft's DirectX library.
+	 A 3D game engine utilizing Microsoft's DirectX library for the graphics
+	 rendering sublayer. 
 
     Copyright (C) 2011 Lucas Sherman
 
@@ -72,6 +73,7 @@
 #include <list>
 #include <vector>
 #include <limits>
+#include <stack>
 
 // Debug build options
 #ifdef _DEBUG
@@ -82,6 +84,9 @@
 
 // End debug options
 #endif
+
+// Networking Sublayer
+#include "NetworkManager.h"
 
 // Window Resource File
 #include "Resources.h"
@@ -95,15 +100,11 @@
 // High Resolution Timer
 #include "Timer.h"
 
-// 3D Scene Camera
+// Graphics Sublayer
 #include "Camera.h"
-
-// Abstract Base Classes
 #include "Resource.h"
 #include "Renderable.h"
-#include "Controller.h"
-
-// DirectX Wrapper Classes
+#include "Colors.h"
 #include "Image.h"
 #include "Effect.h"
 #include "VertexBuffer.h"
@@ -112,13 +113,13 @@
 #include "Object.h"
 #include "Font.h"
 
-// GUI Base Classes
+// GUI Sublayer
 #include "WindowStyle.h" // :TODO: No WindowStyle or color dependancy it
 #include "Control.h"	 //		is technically an implemented GUI feature
 #include "Panel.h"		 //     ( ie non-essential to user implementation )
 #include "DisplayPanel.h"
 
-// Standard GUI Controls
+// Default GUI Controls
 #ifndef DX_NOGUI
 #include "Messages.h"
 #include "NumericIndicator.h"
@@ -133,11 +134,15 @@
 #include "Graphic.h"
 #endif//DX_NOGUI
 
-// Management Class
-#include "Manager.h"
+// Callback Framework
+#include "Controller.h"
 
-// Simple Color Vals
-#include "Colors.h"
+// Abstract Game State
+#include "GameState.h"
+
+// Engine Management 
+#include "Manager.h"
+#include "EngineManager.h"
 
 // End definition
 #endif

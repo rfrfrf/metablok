@@ -25,11 +25,11 @@
 =========================================================================== */
 
 // Begin definition
-#ifndef SHEAR_ENGINE_GAMESTATE_H
-#define SHEAR_ENGINE_GAMESTATE_H
+#ifndef DX_ENGINE_GAMESTATE_H
+#define DX_ENGINE_GAMESTATE_H
 
 // Colonization namespace
-namespace Shear
+namespace DirectX
 {
 	// ShearEngine GameState states (For engine manager)
 	enum State { WAITING, RUNNING, PAUSED, COMPLETED };

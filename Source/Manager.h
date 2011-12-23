@@ -26,8 +26,8 @@
 =========================================================================== */
 
 // Begin definition
-#ifndef DX_ENGINE_MANAGER_H
-#define DX_ENGINE_MANAGER_H
+#ifndef DX_ENGINE_GRAPHICS_MANAGER_H
+#define DX_ENGINE_GRAPHICS_MANAGER_H
 
 // Storage structure for render states
 typedef struct D3DRENDER_STATES {

@@ -33,16 +33,17 @@
 using namespace DirectX::GUI;
 
 // Main menu buttons
-#define MM_NBUTTONS   5
-#define MM_SIMULATOR  0
-#define MM_OPENINGS   1
-#define MM_SETTINGS	  2
-#define MM_CREDITS    3
-#define MM_QUIT       4
+#define MM_NBUTTONS    6
+#define MM_SIMULATOR   0
+#define MM_MULTIPLAYER 1
+#define MM_OPENINGS    2
+#define MM_SETTINGS	   3
+#define MM_CREDITS     4
+#define MM_QUIT        5
 
 // Main menu button text
-static const wchar_t* strings[] = { L"MATCH SIMULATOR", 
-	L"OPENING BOOK DEVELOPER", L"GRAPHICS SETTINGS", L"CREDITS", L"QUIT" };
+static const wchar_t* strings[] = { L"MATCH SIMULATOR", L"MULTIPLAYER", 
+	L"OPENING DEVELOPER", L"GRAPHICS SETTINGS", L"CREDITS", L"QUIT" };
 
 // --------------------------------------------------------
 //	Creates the GUI display panel and associated resources
@@ -59,23 +60,17 @@ void MainMenu::startup( )
 	m_backdropImg.create( L"Images/Menu.bmp" );
 
 	// Get default window style from engine
-	m_style = Shear::ShearManager::instance( )->getWindowStyle( );
+	m_style = DirectX::EngineManager::instance( )->getWindowStyle( );
 
 	// Create user interface display panel
 	m_displayPanel = &DisplayPanel::create( ).size( 1024, 768 );
-	
+
 	// Create backdrop graphic
-	int sh = m_manager->getDisplayHeight( ); int sw = sh * 4 / 3;
-	int px = ( m_manager->getDisplayWidth( ) - sw ) / 2;
-	m_backdrop = &Graphic::create( &m_backdropImg, m_displayPanel )
-		.size( sw, sh ).pos( px, 0 );
+	m_backdrop = &Graphic::create( &m_backdropImg, m_displayPanel );
 
 	// Create interface buttons
-	int height = m_manager->getDisplayHeight( ) / 2 - 80*(MM_NBUTTONS/2) + 30;
-	int width = m_manager->getDisplayWidth( ) / 2 - 100;
 	for( int i = 0; i < MM_NBUTTONS; i++ )
-		m_buttons[i] = &Button::create( m_style, m_displayPanel )
-			.text( strings[i] ).pos( width, height+80*i ).size( 200, 50 );
+		m_buttons[i] = &Button::create( m_style, m_displayPanel ).text( strings[i] );
 
 	// Proceed to run
 	m_state = RUNNING;
@@ -96,10 +91,10 @@ void MainMenu::onDeviceReset( )
 	m_backdrop->size( sw, sh ).pos( px, 0 );
 
 	// Update button positions
-	int height = m_manager->getDisplayHeight( ) / 2 - 80*(MM_NBUTTONS/2) + 30;
+	int height = m_manager->getDisplayHeight( ) / 2 - 80*(MM_NBUTTONS/2) + 90;
 	int width = m_manager->getDisplayWidth( ) / 2 - 100;
 	for( int i = 0; i < MM_NBUTTONS; i++ )
-		m_buttons[i]->pos( width, height+80*i ).size( 200, 50 );
+		m_buttons[i]->pos( width, height+70*i ).size( 200, 50 );
 }
 //
 // --------------------------------------------------------
@@ -108,7 +103,7 @@ void MainMenu::onDeviceReset( )
 void MainMenu::onGuiEvent( DirectX::GUI::Control* control, unsigned int message, void* data )
 {
 	// Get handle to management class
-	Shear::ShearManager* manager = Shear::ShearManager::instance( );
+	DirectX::EngineManager* manager = DirectX::EngineManager::instance( );
 
 	// Launch simulator game state
     if( control == m_buttons[MM_SIMULATOR] ) 
@@ -122,6 +117,13 @@ void MainMenu::onGuiEvent( DirectX::GUI::Control* control, unsigned int message,
 	{
 		manager->popState( ); m_state = COMPLETED; 
 		manager->pushState( new OpeningUI( ) );
+	}
+
+	// Launch networking menu
+	else if( control == m_buttons[MM_MULTIPLAYER] )
+	{
+		manager->popState( ); m_state = COMPLETED; 
+		//manager->pushState( new NetworkSetup( ) );
 	}
 
 	// Application termination

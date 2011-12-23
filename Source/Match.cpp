@@ -29,6 +29,9 @@
 // Include header
 #include "Match.h"
 
+// System timer
+#include <time.h>
+
 // Debug AI modules
 #define DEBUG_AIS  0
 
@@ -1366,7 +1369,7 @@ void Match::displaySystemInfo( )
 					 << L"  Maximum application address: " << siSysInfo.lpMaximumApplicationAddress << L"\n"
 					 << L"  Active processor mask: " << siSysInfo.dwActiveProcessorMask;
 	
-	DirectX::Font* font = &Shear::ShearManager::instance( )->getWindowStyle( )->font;
+	DirectX::Font* font = &DirectX::EngineManager::instance( )->getWindowStyle( )->font;
 	font->drawText( 10, 10, systemInfoStream.str( ).c_str( ), COLOR::WHITE );
 }
 //
@@ -1377,7 +1380,7 @@ void Match::displaySystemInfo( )
 void Match::displayDebugInfo( )
 {
 	// Get the global font style from the engine
-	DirectX::Font* font = &Shear::ShearManager::instance( )->getWindowStyle( )->font; 
+	DirectX::Font* font = &DirectX::EngineManager::instance( )->getWindowStyle( )->font; 
 
 	// Compose move history string
 	std::wstringstream strStream; strStream.str(L" ");
@@ -1424,7 +1427,7 @@ void Match::displayMatchInfo( )
 	std::wstringstream strStream; 
 
 	// Get the global font style from the engine
-	DirectX::Font* font = &Shear::ShearManager::instance( )->getWindowStyle( )->font;
+	DirectX::Font* font = &DirectX::EngineManager::instance( )->getWindowStyle( )->font;
 
 	// Render score value text
 	strStream.str(L" "); strStream << L"Scores - B: " << m_score[0] << L" R: " << m_score[1];

@@ -28,9 +28,6 @@
 #ifndef SHEAR_ENGINE_H
 #define SHEAR_ENGINE_H
 
-// C++ Standard Library
-#include <stack>
-
 // DirectX engine
 #include "DirectX.h"
 
@@ -44,11 +41,6 @@
 // End debug options
 #endif
 
-// Abstract Game State
-#include "GameState.h"
-
-// Shear engine manager
-#include "ShearManager.h"
 
 // End definition
 #endif

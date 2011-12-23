@@ -31,7 +31,7 @@
 class Match;
 
 // Match game state
-class OpeningUI : public Shear::GameState
+class OpeningUI : public DirectX::GameState
 {
 
 public:
