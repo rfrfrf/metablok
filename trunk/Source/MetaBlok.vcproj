@@ -228,42 +228,14 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Shear Engine"
-			>
-			<File
-				RelativePath=".\Shear.h"
-				>
-			</File>
-			<Filter
-				Name="Header Files"
-				>
-				<File
-					RelativePath=".\GameState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ShearManager.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Source Files"
-				>
-				<File
-					RelativePath=".\ShearManager.cpp"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="DirectX"
+			Name="Game Engine"
 			>
 			<File
 				RelativePath=".\DirectX.h"
 				>
 			</File>
 			<Filter
-				Name="DirectX Engine"
+				Name="Graphics"
 				>
 				<Filter
 					Name="Header Files"
@@ -274,10 +246,6 @@
 					</File>
 					<File
 						RelativePath=".\Colors.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Controller.h"
 						>
 					</File>
 					<File
@@ -301,10 +269,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Manager.h"
-						>
-					</File>
-					<File
 						RelativePath=".\Mesh.h"
 						>
 					</File>
@@ -322,14 +286,6 @@
 					</File>
 					<File
 						RelativePath=".\Scancodes (US).h"
-						>
-					</File>
-					<File
-						RelativePath=".\TargetVersion.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Timer.h"
 						>
 					</File>
 					<File
@@ -361,10 +317,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Manager.cpp"
-						>
-					</File>
-					<File
 						RelativePath=".\Mesh.cpp"
 						>
 					</File>
@@ -373,37 +325,13 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Timer.cpp"
-						>
-					</File>
-					<File
 						RelativePath=".\VertexBuffer.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Resource Files"
-					>
-					<File
-						RelativePath=".\large.ico"
-						>
-					</File>
-					<File
-						RelativePath=".\Resources.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Resources.rc"
-						>
-					</File>
-					<File
-						RelativePath=".\small.ico"
 						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="DirectX GUI"
+				Name="GUI"
 				>
 				<Filter
 					Name="Header Files"
@@ -519,7 +447,7 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="DirectX Sound"
+				Name="Audio"
 				>
 				<Filter
 					Name="Header Files"
@@ -528,6 +456,94 @@
 				<Filter
 					Name="Source Files"
 					>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Networking"
+				>
+				<Filter
+					Name="Header Files"
+					>
+					<File
+						RelativePath=".\NetworkManager.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Source Files"
+					>
+					<File
+						RelativePath=".\NetworkManager.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Management"
+				>
+				<Filter
+					Name="Header Files"
+					>
+					<File
+						RelativePath=".\Controller.h"
+						>
+					</File>
+					<File
+						RelativePath=".\EngineManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\GameState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Manager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\TargetVersion.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Timer.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Source Files"
+					>
+					<File
+						RelativePath=".\EngineManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Manager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Timer.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Resource Files"
+					>
+					<File
+						RelativePath=".\large.ico"
+						>
+					</File>
+					<File
+						RelativePath=".\Resources.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Resources.rc"
+						>
+					</File>
+					<File
+						RelativePath=".\small.ico"
+						>
+					</File>
 				</Filter>
 			</Filter>
 		</Filter>

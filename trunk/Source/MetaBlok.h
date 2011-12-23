@@ -27,21 +27,8 @@
 #ifndef BLOKUS_H
 #define BLOKUS_H
 
-// System timer
-#include <time.h>
-
 // Game Engine header
-#include "Shear.h" 
-
-// Debug build options
-#ifdef _DEBUG
-
-// Enhanced Memory Leak Detection
-#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
-#define new DEBUG_NEW 
-
-// End debug options
-#endif
+#include "DirectX.h" 
 
 // Game Header files
 #include "PieceSet.h"

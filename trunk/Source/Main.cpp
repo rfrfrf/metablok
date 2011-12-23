@@ -38,31 +38,31 @@ int CALLBACK WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 
 	// Instance pointer to engine
-	Shear::ShearManager* ShearEngine = Shear::ShearManager::instance( );
+	DirectX::EngineManager* engineManager = DirectX::EngineManager::instance( );
 
 	// Initialize the shear engine
-	ShearEngine->startUp( hInstance );
+	engineManager->startUp( hInstance );
 
 	// Initialize the state stack
 	MainMenu* menu = new MainMenu( );
-	ShearEngine->pushState( menu );
+	engineManager->pushState( menu );
 
 	// Initialize windows message
 	MSG msg; PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE );
 
 	// Main loop
-	while( ShearEngine->isRunning( ) )
+	while( engineManager->isRunning( ) )
 	{
 		// Recieve windows messages
         while( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
 			{ TranslateMessage(&msg); DispatchMessage(&msg); }
 
 		// Perform engine processes
-		ShearEngine->main( );
+		engineManager->main( );
 	}
 
 	// Shutdown the engine
-	ShearEngine->shutDown( );
+	engineManager->shutDown( );
 
 	// Return to windows
 	return 0;

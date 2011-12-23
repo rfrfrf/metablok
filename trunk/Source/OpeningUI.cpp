@@ -103,7 +103,7 @@ void OpeningUI::onGuiEvent( DirectX::GUI::Control* control, unsigned int message
 	// Quit verification window
 	else if( control->getPanel( ) == m_quitWin )
 	{
-		Shear::ShearManager* manager = Shear::ShearManager::instance( );
+		DirectX::EngineManager* manager = DirectX::EngineManager::instance( );
 		if( control == m_quitCancelButton ) { delete m_quitWin; m_quitWin = NULL; }
 		if( control == m_quitAcceptButton ) { manager->popState( ); 
 			manager->pushState( new MainMenu( ) ); m_state = COMPLETED; }  
@@ -170,7 +170,7 @@ void OpeningUI::startup( )
 	m_manager->addController( this );
 
 	// Get default window style from engine
-	m_style = Shear::ShearManager::instance( )->getWindowStyle( );
+	m_style = DirectX::EngineManager::instance( )->getWindowStyle( );
 
 	// Create user interface display panel
 	m_displayPanel = &DisplayPanel::create( ).size( 1024, 768 );

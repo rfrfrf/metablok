@@ -24,11 +24,11 @@
 =========================================================================== */
 
 // Begin definition
-#ifndef MAIN_MENU
-#define MAIN_MENU
+#ifndef MAIN_MENU_H
+#define MAIN_MENU_H
 
 // Splash screen
-class MainMenu : public Shear::GameState
+class MainMenu : public DirectX::GameState
 {
 public:
 	// Privatized Construction
@@ -58,7 +58,7 @@ private:
 	DirectX::GUI::Graphic* m_backdrop;
 
 	// Primary menu buttons
-	DirectX::GUI::Button* m_buttons[5];
+	DirectX::GUI::Button* m_buttons[6];
 };
 
 // End definition
