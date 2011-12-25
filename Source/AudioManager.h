@@ -1,10 +1,13 @@
 /* ===========================================================================
 
-	Project: MetaBlok - MatchUI
+	Project: Game Engine - Audio Manager
 
-	Description: Graphical simulator for developing AI players for Blokus.
+	Description: Implements game engines audio capabilities using the Windows
+	 XAudio2 API.
 
-    Copyright (C) 2011 Lucas Sherman, David Gloe, Mary Southern, Tobias Gulden
+	http://msdn.microsoft.com/en-us/library/windows/desktop/hh405049%28v=VS.85%29.aspx
+
+    Copyright (C) 2011 Lucas Sherman
 
 	Lucas Sherman, email: LucasASherman@gmail.com
 
@@ -23,21 +26,42 @@
 
 =========================================================================== */
 
-// Begin definitions
-#ifndef BLOKUS_H
-#define BLOKUS_H
+// Begin definition
+#ifndef DX_ENGINE_AUDIO_MANAGER_H
+#define DX_ENGINE_AUDIO_MANAGER_H
 
-// Game Engine header
-#include "DirectX.h" 
+// XAudio API
+#include <xaudio2.h>
 
-// Game Header files
-#include "PieceSet.h"
-#include "Types.h" 
-#include "Match.h"
-#include "MatchUI.h"
-#include "OpeningUI.h"
-#include "NetworkSetup.h"
-#include "MainMenu.h"
+// Engine namespace
+namespace DirectX
+{
 
-// End definition
+// Management class
+class AudioManager
+{
+public:
+	// Destructor
+	~AudioManager( ) { shutdown( ); }
+
+	// Startup / Shutdown processes
+	int startup( ); void shutdown( );
+
+	// Singleton accessor	
+	static AudioManager* instance( )
+	{
+		static AudioManager gSingleton;
+		return &gSingleton;
+	}
+
+private:
+	AudioManager( ) { }
+
+	IXAudio2* m_xAudio2;
+	IXAudio2MasteringVoice* m_masterVoice;
+};
+
+}
+
+// End file definition
 #endif

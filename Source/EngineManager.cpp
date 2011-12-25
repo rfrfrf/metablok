@@ -32,7 +32,11 @@
 #include "EngineManager.h"
 
 // Debug mode
+#ifdef _DEBUG
 #define SHEAR_DEBUG 0
+#else
+#define SHEAR_DEBUG 1
+#endif
 
 // ---------------------------------------------------------
 //	Creates and initializes the direct3D management object.
@@ -122,15 +126,17 @@ void DirectX::EngineManager::main( )
 		// Pause/Delete the current state 
 		if( state != COMPLETED ) 
 			currentState->pause( );
-		else {
+		else 
+		{
 			currentState->shutdown( );
 			delete currentState;
 			currentState = NULL;
 		}
 
 		// Change states
-		if( !callStack.empty( ) ) 
+		if( !callStack.empty( ) ) {
 			currentState = callStack.top( );
+			currentState->startup( ); }
 	}
 
 	// Render the next frame

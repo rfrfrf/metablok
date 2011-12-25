@@ -190,6 +190,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\NetworkSetup.h"
+					>
+				</File>
+				<File
 					RelativePath=".\OpeningUI.h"
 					>
 				</File>
@@ -215,6 +219,10 @@
 				</File>
 				<File
 					RelativePath=".\MatchUI.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\NetworkSetup.cpp"
 					>
 				</File>
 				<File
@@ -452,10 +460,26 @@
 				<Filter
 					Name="Header Files"
 					>
+					<File
+						RelativePath=".\AudioManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Sound.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="Source Files"
 					>
+					<File
+						RelativePath=".\AudioManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Sound.cpp"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -544,6 +568,18 @@
 						RelativePath=".\small.ico"
 						>
 					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Input"
+				>
+				<Filter
+					Name="Header Files"
+					>
+				</Filter>
+				<Filter
+					Name="Source Files"
+					>
 				</Filter>
 			</Filter>
 		</Filter>
