@@ -185,7 +185,7 @@ bool DirectX::Manager::checkDeviceLost( )
 			// those created by the IDirect3DDevice9::CreateRenderTarget 
 			// and IDirect3DDevice9::CreateDepthStencilSurface methods.
 			hr = d3ddev->Reset( &d3dpp ); if( FAILED( hr ) )
-				{ MessageBox( d3dhwnd, L"Call to device reset has failed!", L"DirectX Engine", NULL ); exit(1);}
+				{ MessageBox( d3dhwnd, L"Call to device reset has failed!", L"DirectX Engine", NULL ); exit(1); }
 
 			// A lost device must also re-create resources (including  
 			// video memory resources) after it has been reset.
