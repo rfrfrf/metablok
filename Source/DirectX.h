@@ -47,6 +47,9 @@
 #pragma comment (lib, "d3d9.lib")
 #pragma comment (lib, "d3dx9.lib")
 
+// XInput library
+#pragma comment(lib, "xinput.lib")
+
 // Set required windows version
 #include "TargetVersion.h"
 	
@@ -57,6 +60,9 @@
 // DirectX Headers
 #include <d3d9.h>
 #include <d3dx9.h>
+
+// XInput Headers
+#include <XInput.h>
 
 // C RunTime Header Files
 #include <stdlib.h>
@@ -87,6 +93,9 @@
 
 // Networking Sublayer
 #include "NetworkManager.h"
+
+// Input Sublayer
+#include "InputManager.h"
 
 // Window Resource File
 #include "Resources.h"
@@ -134,14 +143,10 @@
 #include "Graphic.h"
 #endif//DX_NOGUI
 
-// Callback Framework
-#include "Controller.h"
+// Graphics Sublayer
+#include "GraphicsManager.h"
 
-// Abstract Game State
-#include "GameState.h"
-
-// Engine Management 
-#include "Manager.h"
+// Game Engine Manager
 #include "EngineManager.h"
 
 // End definition

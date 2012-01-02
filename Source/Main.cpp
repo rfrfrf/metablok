@@ -53,7 +53,8 @@ int CALLBACK WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	// Main loop
 	while( engineManager->isRunning( ) )
 	{
-		// Recieve windows messages
+		// Recieve windows messages 
+		// :TODO: Incorperate in engine
         while( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
 			{ TranslateMessage(&msg); DispatchMessage(&msg); }
 

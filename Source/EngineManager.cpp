@@ -25,27 +25,15 @@
 
 =========================================================================== */
 
-// Include Engine header
-#include "Shear.h"
+// Engine header
+#include "DirectX.h"
 
 // Include header
 #include "EngineManager.h"
 
 // Debug mode
-#ifdef _DEBUG
-#define SHEAR_DEBUG 0
-#else
-#define SHEAR_DEBUG 1
-#endif
+#define SHEAR_DEBUG _DEBUG
 
-// ---------------------------------------------------------
-//	Creates and initializes the direct3D management object.
-// ---------------------------------------------------------
-DirectX::EngineManager::EngineManager( )
-{
-	currentState = NULL;
-}
-//
 // ---------------------------------------------------------
 //	Creates and initializes the DirectX management object. 
 //  It also sets the callback  functions for Direct3D and 
@@ -53,25 +41,32 @@ DirectX::EngineManager::EngineManager( )
 // ---------------------------------------------------------
 void DirectX::EngineManager::startUp( HINSTANCE instHandle )
 {
-	// Initialize DirectX Engine
-	directXManager = DirectX::Manager::instance( );
+	// Acquire handles to subsystem controllers
+	graphicsManager = DirectX::Manager::instance( );
+	networkManager = DirectX::NetworkManager::instance( );
+	inputManager = DirectX::InputManager::instance( );
 
-	// Register the engine manager as a DirectX
-	// controller object for debug rendering
-	// and device settings verification
-	directXManager->addController( this );
-	directXManager->createWindow( instHandle );
-	directXManager->setDisplayMode( 800, 600, 32, 0 );
-	directXManager->setWindowMode( true ); 
-	directXManager->createDevice( );
+	// Initialize subsystems
+	//graphicsManager->startup( );
+	networkManager->startup( );
+	inputManager->startup( );
+
+	// Register the engine as a graphics controller
+	graphicsManager->addController( this );
+
+	// Initialize the default display settings
+	graphicsManager->createWindow( instHandle );
+	graphicsManager->setDisplayMode( 800, 600, 32, 0 );
+	graphicsManager->setWindowMode( true ); 
+	graphicsManager->createDevice( );
 
 	// Set default backdrop color to black
-	directXManager->setBackdropColor( COLOR::BLACK );
+	graphicsManager->setBackdropColor( COLOR::BLACK );
 
 	// Create default window style
 	loadDefaultWindowStyle( );
 
-	// Create console window
+	// Create engine console window
 	//m_consoleWin.create( &m_windowStyle, NULL, 25, 25, 400, 450, 0xFFFF );
 	m_consoleFont.createDefault( );
 }
@@ -140,7 +135,7 @@ void DirectX::EngineManager::main( )
 	}
 
 	// Render the next frame
-	DirectX::Manager::instance( )->renderFrame( );
+	graphicsManager->renderFrame( );
 }
 //
 // ---------------------------------------------------------
@@ -170,7 +165,9 @@ void DirectX::EngineManager::shutDown( )
 	}
 
 	// Shutdown engine components
-	DirectX::Manager::instance( )->release( );
+	graphicsManager->release( );
+	networkManager->shutdown( );
+	inputManager->shutdown( );
 }
 //
 //----------------------------------------------------------

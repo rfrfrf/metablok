@@ -27,16 +27,18 @@
 #ifndef NETWORK_SETUP_H
 #define NETWORK_SETUP_H
 
+// Game Engine
+#include "DirectX.h"
+
 // Splash screen
 class NetworkSetup : public DirectX::GameState
 {
 public:
-	// Privatized Construction
-	NetworkSetup( ) { m_state = WAITING; }
+	// Variable initialization
+	NetworkSetup( ) { }
 
-	// Primary methods
-	void startup( );
-	void shutdown( );
+	// Initialization/Shutdown methods
+	void startup( ); void shutdown( );
 
 	// DirectX controller functions
 	void onKeyboardEvent( UINT message, WPARAM wParam, LPARAM lParam ) { }
@@ -49,7 +51,9 @@ public:
 
 private:
 	// Graphics manager
-	DirectX::Manager* m_manager;
+	DirectX::Manager* m_graphicsManager;
+	DirectX::NetworkManager* m_networkManager;
+	DirectX::EngineManager* m_engineManager;
 
 	// User interface display panel
 	DirectX::GUI::WindowStyle* m_style;
@@ -70,11 +74,14 @@ private:
 	DirectX::GUI::Button* m_buttonServer;
 	DirectX::GUI::Button* m_buttonConnect;
 	DirectX::GUI::Button* m_buttonStart;
+	void positionGuiElements( );
 
 	// Network connection handles
-	//Connection m_clientConnections[4];
-	//Connection m_serverConnection;
-	//bool m_isHost;
+	DirectX::Socket m_clientSockets[4];
+	DirectX::Socket m_serverSocket;
+	bool m_isHost, m_isClient;
+	bool m_isClientReady[4];
+	void beginHostingMatch( );
 };
 
 // End definition

@@ -23,11 +23,11 @@
 
 =========================================================================== */
 
-// Standard includes
-#include "MetaBlok.h"
-
 // Include header
 #include "NetworkSetup.h"
+
+// Standard includes
+#include "MetaBlok.h"
 
 // DirectX GUI controls
 using namespace DirectX::GUI;
@@ -37,41 +37,99 @@ using namespace DirectX::GUI;
 // --------------------------------------------------------
 void NetworkSetup::startup( )
 {	
-	// Grab handle to manager object
-	m_manager = DirectX::Manager::instance( );
+	// Acquire handles to subsystem managers
+	m_graphicsManager = DirectX::Manager::instance( );
+	m_networkManager = DirectX::NetworkManager::instance( );
+	m_engineManager = DirectX::EngineManager::instance( );
 
 	// Register this object as a controller
-	m_manager->addController( this );
+	m_graphicsManager->addController( this );
+
+	// Begin hosting a match 
+	beginHostingMatch( );
 
 	// Load background sprite
 	m_backdropImg.create( L"Images/Menu.bmp" );
 
 	// Get default window style from engine
-	m_style = DirectX::EngineManager::instance( )->getWindowStyle( );
+	m_style = m_engineManager->getWindowStyle( );
 
 	// Create user interface display panel
 	m_displayPanel = &DisplayPanel::create( ).size( 1024, 768 );
 
 	// Create backdrop graphic
-	int sh = m_manager->getDisplayHeight( ); int sw = sh * 4 / 3;
-	int px = ( m_manager->getDisplayWidth( ) - sw ) / 2;
-	m_backdrop = &Graphic::create( &m_backdropImg, m_displayPanel )
-		.size( sw, sh ).pos( px, 0 );
+	m_backdrop = &Graphic::create( &m_backdropImg, m_displayPanel );
+
+	// Create control button panel
+	m_buttonConnect = &Button::create( m_style, m_displayPanel )
+		.size( 128, 32 ).text( L"Connect" );
+	m_buttonServer = &Button::create( m_style, m_displayPanel )
+		.size( 128, 32 ).text( L"Host" );
+	m_buttonStart = &Button::create( m_style, m_displayPanel )
+		.size( 128, 32 ).text( L"Ready" );
+	m_buttonCancel = &Button::create( m_style, m_displayPanel )
+		.size( 128, 32 ).text( L"Cancel" );
+
+	// Position GUI elements
+	positionGuiElements( );
 
 	// Proceed to run
 	m_state = RUNNING;
 }
-// 
+//
+// --------------------------------------------------------
+//	Initializes this instance as a match server and begins
+//  listing on the default port.
+// --------------------------------------------------------
+void NetworkSetup::beginHostingMatch( )
+{
+	// Initialize this instance as a host on the default port if possible
+	m_serverSocket = m_networkManager->createServer( DirectX::NCT_TCP, L"8000" );
+
+	// Check for socket initialization error
+	if( !m_networkManager->getSocketError( m_serverSocket ) ) 
+	{
+		// Enable non-blocking io for single-threaded server
+		m_networkManager->makeNonBlocking( m_serverSocket );
+		m_isHost = true; m_isClient = false;
+	} 
+	else 
+	{ 
+		// Close the connection to clear any dangling data
+		m_networkManager->closeConnection( m_serverSocket );
+		m_isClient = false; m_isHost = false; 
+	}
+}
+//
 // --------------------------------------------------------
 //  Repositions GUI elements when the screen dimensions 
 //  are changed.
 // --------------------------------------------------------
+void NetworkSetup::positionGuiElements( )
+{
+	// Get display dimensions from graphics manager
+	int sh = m_graphicsManager->getDisplayHeight( ); int sw = sh * 4 / 3;
+
+	// Position backdrop graphic
+	int px = ( m_graphicsManager->getDisplayWidth( ) - sw ) / 2;
+	m_backdrop->size( sw, sh ).pos( px, 0 );
+
+	// Control buttons
+	int boff = sw/2-64;
+	m_buttonServer->pos( boff-225, sh-64 );
+	m_buttonConnect->pos( boff-75, sh-64 );
+	m_buttonStart->pos( boff+75, sh-64 );
+	m_buttonCancel->pos( boff+225, sh-64 );
+}
+// 
+// --------------------------------------------------------
+//  Calls the gui repositioning procedure when the graphics
+//  device is reset.
+// --------------------------------------------------------
 void NetworkSetup::onDeviceReset( )
 {
-	// Update background graphic position
-	int sh = m_manager->getDisplayHeight( ); int sw = sh * 4 / 3;
-	int px = ( m_manager->getDisplayWidth( ) - sw ) / 2;
-	m_backdrop->size( sw, sh ).pos( px, 0 );
+	// Reposition gui elements
+	positionGuiElements( );
 }
 //
 // --------------------------------------------------------
@@ -79,6 +137,41 @@ void NetworkSetup::onDeviceReset( )
 // --------------------------------------------------------
 void NetworkSetup::onGuiEvent( DirectX::GUI::Control* control, unsigned int message, void* data )
 {
+	// Begin hosting match
+	if( control == m_buttonServer )
+	{
+		// Ignore if an active host
+		if( m_isHost ) return;
+
+		// Prompt if an active client
+		else if( m_isClient ) ;
+
+		else ;
+	}
+
+	// Launch simulator game state
+    if( control == m_buttonCancel ) 
+	{ 
+		m_engineManager->popState( ); m_state = COMPLETED; 
+		m_engineManager->pushState( new MainMenu( ) );
+	}
+
+	// Handle ready-up flagging
+	else if( control == m_buttonStart )
+	{
+		// Set flag if host
+		if( m_isHost )
+		{
+			m_isClientReady[0] = !m_isClientReady[0];
+		}
+
+		// Notify server if client
+		else if( m_isClient )
+		{
+		}
+
+		else return;
+	}
 }
 //
 // --------------------------------------------------------
@@ -90,7 +183,7 @@ void NetworkSetup::shutdown( )
 	delete m_displayPanel;
 
 	// Delete this object as a controller
-	m_manager->deleteController( this );
+	m_graphicsManager->deleteController( this );
 
 	// Release images
 	m_backdropImg.release( );
