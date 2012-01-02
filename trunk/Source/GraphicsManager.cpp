@@ -1,6 +1,6 @@
 /* ===========================================================================
 
-	Project: DirectX Engine - Manager
+	Project: DirectX Engine - GraphicsManager
 
 	Description:
 	 DirectX Engine for loading and managing Direct3D and handling video
@@ -29,8 +29,8 @@
 #include "DirectX.h"
 
 // Include header
-#include "Manager.h"
-                              
+#include "GraphicsManager.h"
+
 // Window styles
 #define FULLSCREEN_EX ( WS_EX_TOPMOST )
 #define FULLSCREEN	  ( WS_POPUP | WS_CLIPSIBLINGS | WS_VISIBLE )
@@ -159,7 +159,7 @@ void DirectX::Manager::onDeviceReset( )
 // --------------------------------------------------------
 //  Returns true if the device is lost, false otherwise
 //  If the device is lost and can be reset, it resets the
-//  device, calling the appropriate.
+//  device, calling the appropriate preprocesses.
 // --------------------------------------------------------
 bool DirectX::Manager::checkDeviceLost( ) 
 {

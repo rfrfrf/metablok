@@ -257,6 +257,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\Controller.h"
+						>
+					</File>
+					<File
 						RelativePath=".\Definitions.h"
 						>
 					</File>
@@ -266,6 +270,10 @@
 					</File>
 					<File
 						RelativePath=".\Font.h"
+						>
+					</File>
+					<File
+						RelativePath=".\GraphicsManager.h"
 						>
 					</File>
 					<File
@@ -314,6 +322,10 @@
 					</File>
 					<File
 						RelativePath=".\Font.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\GraphicsManager.cpp"
 						>
 					</File>
 					<File
@@ -509,19 +521,11 @@
 					Name="Header Files"
 					>
 					<File
-						RelativePath=".\Controller.h"
-						>
-					</File>
-					<File
 						RelativePath=".\EngineManager.h"
 						>
 					</File>
 					<File
 						RelativePath=".\GameState.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Manager.h"
 						>
 					</File>
 					<File
@@ -538,10 +542,6 @@
 					>
 					<File
 						RelativePath=".\EngineManager.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Manager.cpp"
 						>
 					</File>
 					<File
@@ -576,10 +576,42 @@
 				<Filter
 					Name="Header Files"
 					>
+					<File
+						RelativePath=".\InputManager.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="Source Files"
 					>
+					<File
+						RelativePath=".\InputManager.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Debugging"
+				>
+				<Filter
+					Name="Header Files"
+					>
+					<File
+						RelativePath=".\DebugMacros.h"
+						>
+					</File>
+					<File
+						RelativePath=".\DebugManager.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Source Files"
+					>
+					<File
+						RelativePath=".\DebugManager.cpp"
+						>
+					</File>
 				</Filter>
 			</Filter>
 		</Filter>

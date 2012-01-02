@@ -29,6 +29,9 @@
 #ifndef DX_ENGINE_MANAGER_H
 #define DX_ENGINE_MANAGER_H
 
+// Abstract GameState
+#include "GameState.h"
+
 // Engine namespace
 namespace DirectX
 {
@@ -71,11 +74,12 @@ namespace DirectX
 
 	private:
 		// Contructor
-		EngineManager( ); 
+		EngineManager( ) : currentState(NULL) { } 
 
 		// DirectX Engine manager handle
-		DirectX::Manager* directXManager;
+		DirectX::Manager* graphicsManager;
 		DirectX::NetworkManager* networkManager;
+		DirectX::InputManager* inputManager;
 
 		// Engine GUI Resources
 		void loadDefaultWindowStyle( );

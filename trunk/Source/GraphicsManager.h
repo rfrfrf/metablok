@@ -1,6 +1,6 @@
 /* ===========================================================================
 
-	Project: DirectX Engine - Manager
+	Project: DirectX Engine - GraphicsManager
 
 	Description:
 	 DirectX Engine for loading and managing Direct3D and handling video
@@ -28,6 +28,9 @@
 // Begin definition
 #ifndef DX_ENGINE_GRAPHICS_MANAGER_H
 #define DX_ENGINE_GRAPHICS_MANAGER_H
+
+// Callback Framework
+#include "Controller.h"
 
 // Storage structure for render states
 typedef struct D3DRENDER_STATES {
@@ -60,6 +63,7 @@ namespace DirectX
 		LPD3DXSPRITE getSprite( ) { return d3dsprite; }
 
 		// Device creation
+		void startup( );
 		bool createDevice( );
 
 		// Backbuffer / device settings queries
@@ -155,7 +159,7 @@ namespace DirectX
 		void deleteRenderable( Renderable* renderable ) { if( !renderables.empty( ) ) renderables.remove(renderable); }
 		void deleteResource( Resource *resource ) { if( !resources.empty( ) ) resources.remove(resource); }
 
-		// Message pump for device window, can also be used for internal messages
+		// Message pump for device window, can also be used for simulated messages
 		long messagePump( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam );
 
 		// Singleton accessor	

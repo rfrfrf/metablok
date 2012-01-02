@@ -3,7 +3,7 @@
 	Project: Game Engine - Network Manager
 
 	Description: Implements basic networking functionality using the Windows 
-	 Winsock DLL:
+	 Winsock API:
 
 	http://msdn.microsoft.com/en-us/library/windows/desktop/ms740673%28v=vs.85%29.aspx
 
@@ -40,18 +40,17 @@ typedef UINT_PTR Socket;
 // Connection type
 enum ConnectionType
 {
-	NCT_TCP,
-	NCT_UDP
+	NCT_TCP,	// TCP connection
+	NCT_UDP		// UDP connection
 };
 
 // Startup error codes
 enum NetInitError 
 {
-	NIE_SYSNOTREADY,
-	NIE_VERNOTSUPPORTED,
-	NIE_INPROGRESS,
-	NIE_PROCLIM,
-	NIE_FAULT,
+	NIE_SYSNOTREADY,	// System not ready
+	NIE_INPROGRESS,		// System already active
+	NIE_PROCLIM,		// Process limit reached
+	NIE_FAULT,			// Internal fault
 
 	NIE_NONE = 0 
 };
@@ -59,9 +58,9 @@ enum NetInitError
 // Socket op error codes
 enum SocketOpError
 {
-	SIE_AGAIN,
+	SOE_AGAIN,	// Command interrupted
 
-	SIE_NONE	= 0
+	SOE_NONE = 0
 };
 
 // Management class
@@ -75,14 +74,16 @@ public:
 	NetInitError getInitError( ) { return m_initError; }
 
 	// Startup / Shutdown processes
-	NetInitError startup( int version, int highVersion );
-	void shutdown( );
+	NetInitError startup( ); void shutdown( );
 
 	// Network connection management
 	Socket createServer( ConnectionType ct, const wchar_t* port );
 	Socket connect( ConnectionType ct, const wchar_t* port );
 	Socket acceptConnection( Socket serverSocket );
 	int closeConnection( Socket connection );
+
+	// Socket error checking
+	SocketOpError getSocketError( Socket connection ); 
 
 	// Connection blocking
 	int makeNonBlocking( Socket connection );

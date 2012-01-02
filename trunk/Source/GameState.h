@@ -31,10 +31,10 @@
 // Colonization namespace
 namespace DirectX
 {
-	// ShearEngine GameState states (For engine manager)
+	// GameState action states (For engine manager)
 	enum State { WAITING, RUNNING, PAUSED, COMPLETED };
 
-	// Shear engine game state class
+	// Game engine game state class
 	class GameState : public DirectX::Controller
 	{
 	public:
@@ -54,7 +54,7 @@ namespace DirectX
 		int getState( ) { return m_state; }
 
 	protected:
-		// ShearEngine GameState states (For inheritance)
+		// Game Engine GameState states (For inheritance)
 		enum State { WAITING, RUNNING, PAUSED, COMPLETED };
 
 		State m_state;

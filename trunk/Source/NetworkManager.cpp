@@ -3,7 +3,7 @@
 	Project: Game Engine - Network Manager
 
 	Description: Implements basic networking functionality using the Windows 
-	 Winsock DLL:
+	 Winsock API:
 
 	http://msdn.microsoft.com/en-us/library/windows/desktop/ms740673%28v=vs.85%29.aspx
 
@@ -42,14 +42,18 @@
 // Include header
 #include "NetworkManager.h"
 
+// Winsock API version info
+static const int g_version = 2;
+static const int g_highVersion = 2;
+
 // --------------------------------------------------------
 //	Calls the winsock startup functions and checks for any
 //  initialization errors.
 // --------------------------------------------------------
-DirectX::NetInitError DirectX::NetworkManager::startup( int version, int highVersion )
+DirectX::NetInitError DirectX::NetworkManager::startup( )
 {
 	WSADATA wsaData; 
-	WORD wVersion = MAKEWORD( version, highVersion );
+	WORD wVersion = MAKEWORD( g_version, g_highVersion );
 	m_initError = (NetInitError)WSAStartup( wVersion, &wsaData );
 	if( m_initError != NIE_NONE ) WSACleanup( );
 	return m_initError;
@@ -174,4 +178,12 @@ int DirectX::NetworkManager::makeBlocking( DirectX::Socket connection )
 {
 	unsigned long imode = 0;
 	return ioctlsocket( (SOCKET)connection, FIONBIO, &imode );
+}
+//
+// --------------------------------------------------------
+//  Returns a socket operation error code.
+// --------------------------------------------------------
+DirectX::SocketOpError DirectX::NetworkManager::getSocketError( Socket connection )
+{
+	return SOE_NONE;
 }
