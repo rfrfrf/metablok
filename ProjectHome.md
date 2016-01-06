@@ -1,0 +1,2 @@
+The goal of this project is to develop effective AI players for the board game Blokus and its variants.
+The simulation program is implemented in C++ using the DirectX library. All AI player programs are implemented as standalone applications.
